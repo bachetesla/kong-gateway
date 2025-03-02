@@ -1,4 +1,3 @@
-# Kong Configuration
 _format_version: "3.0"
 
 services:
@@ -18,6 +17,16 @@ services:
       - name: nginx1-route
         paths:
           - /nginx1
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 100
+          policy: local
+      - name: request-transformer
+        config:
+          add:
+            headers:
+              - "X-Request-ID: $request_id"
 
   - name: nginx2-service
     url: http://nginx2
@@ -25,3 +34,56 @@ services:
       - name: nginx2-route
         paths:
           - /nginx2
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 50
+          policy: local
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Server: Kong-Proxy"
+
+  - name: auth-service
+    url: http://auth-service:8080
+    routes:
+      - name: auth-route
+        paths:
+          - /auth
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 200
+          policy: local
+
+  - name: billing-service
+    url: http://billing-service:8081
+    routes:
+      - name: billing-route
+        paths:
+          - /billing
+    plugins:
+      - name: key-auth
+      - name: rate-limiting
+        config:
+          minute: 100
+          policy: local
+
+  - name: notifications-service
+    url: http://notifications-service:8082
+    routes:
+      - name: notifications-route
+        paths:
+          - /notifications
+    plugins:
+      - name: key-auth
+      - name: file-log
+        config:
+          path: /logs/kong.log
+
+plugins:
+  - name: prometheus
+  - name: file-log
+    config:
+      path: /logs/kong.log
