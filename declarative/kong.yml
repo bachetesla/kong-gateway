@@ -1,0 +1,27 @@
+# Kong Configuration
+_format_version: "3.0"
+
+services:
+  - name: admin-api
+    url: http://localhost:8002
+    host: localhost
+    routes:
+      - name: admin-api
+        paths:
+          - /admin-api
+    plugins:
+      - name: key-auth
+
+  - name: nginx1-service
+    url: http://nginx1
+    routes:
+      - name: nginx1-route
+        paths:
+          - /nginx1
+
+  - name: nginx2-service
+    url: http://nginx2
+    routes:
+      - name: nginx2-route
+        paths:
+          - /nginx2
