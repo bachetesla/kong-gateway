@@ -1,4 +1,4 @@
-To design **Kong** as an **Enterprise Service Bus (ESB)**, you need to focus on **API orchestration**, **protocol transformation**, **service discovery**, **authentication**, and **monitoring**. Kong, as an API Gateway, provides many of these features.
+To design **Kong** as an **Enterprise Service Bus (ESB)**, we need to focus on **API orchestration**, **protocol transformation**, **service discovery**, **authentication**, and **monitoring**. Kong, as an API Gateway, provides many of these features.
 
 ---
 
