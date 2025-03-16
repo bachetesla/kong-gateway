@@ -87,3 +87,8 @@ plugins:
   - name: file-log
     config:
       path: /logs/kong.log
+
+consumers:
+  - username: mock-consumer
+    keyauth_credentials:
+      - key: saeed-123
