@@ -20,7 +20,7 @@ consumers:
   - username: mock-consumer
     custom_id: mock-123
     keyauth_credentials:
-      - key: mock-key-xyz123
+      - key: saeed-123
 ```
 
 ### Example Full `kong.yml` (Just Add the Consumers Part)
@@ -44,7 +44,7 @@ consumers:
   - username: mock-consumer
     custom_id: mock-123
     keyauth_credentials:
-      - key: mock-key-xyz123
+      - key: saeed-123
 
 plugins:
   - name: prometheus
@@ -72,7 +72,7 @@ With your Docker Compose already running (`docker-compose up -d`), apply the upd
 
 ## Step 3: Test the Mock Consumer
 
-Test your `key-auth` services with the mock consumer’s API key (`mock-key-xyz123`):
+Test your `key-auth` services with the mock consumer’s API key (`saeed-123`):
 
 ### Admin API
 - **Without Key** (Should Fail):
@@ -82,7 +82,7 @@ Test your `key-auth` services with the mock consumer’s API key (`mock-key-xyz1
     - Output: `{"message":"Unauthorized"}`
 - **With Key** (Should Succeed):
   ```bash
-  curl http://localhost:8000/admin-api -H "apikey: mock-key-xyz123"
+  curl http://localhost:8000/admin-api -H "apikey: saeed-123"
   ```
     - Output: Response from `http://localhost:8002` (or error if no service runs there).
 
@@ -94,7 +94,7 @@ Test your `key-auth` services with the mock consumer’s API key (`mock-key-xyz1
     - Output: `{"message":"Unauthorized"}`
 - **With Key**:
   ```bash
-  curl http://localhost:8000/billing -H "apikey: mock-key-xyz123"
+  curl http://localhost:8000/billing -H "apikey: saeed-123"
   ```
     - Output: Response from `http://nginx2` (per your `kong.yml`).
 
@@ -106,7 +106,7 @@ Test your `key-auth` services with the mock consumer’s API key (`mock-key-xyz1
     - Output: `{"message":"Unauthorized"}`
 - **With Key**:
   ```bash
-  curl http://localhost:8000/notifications -H "apikey: mock-key-xyz123"
+  curl http://localhost:8000/notifications -H "apikey: saeed-123"
   ```
     - Output: Response from `http://nginx1`.
 
@@ -115,7 +115,7 @@ Test your `key-auth` services with the mock consumer’s API key (`mock-key-xyz1
 - **Prerequisites**: Assumes your `docker-compose.yml` and `.env` are set up as in your main project.
 - **Services**: Your `kong.yml` uses `nginx1` and `nginx2` as mock backends for `billing` and `notifications`. Ensure they’re running.
 - **Troubleshooting**:
-    - 401 persists? Check the key matches `mock-key-xyz123`.
+    - 401 persists? Check the key matches `saeed-123`.
     - No response? Verify service URLs in `kong.yml` match your Docker network (e.g., `http://nginx1`).
 
 This mock consumer lets you test your secured endpoints easily!
@@ -132,7 +132,7 @@ This mock consumer lets you test your secured endpoints easily!
        - username: mock-consumer
          custom_id: mock-123
          keyauth_credentials:
-           - key: mock-key-xyz123
+           - key: saeed-123
      ```
 
 2. **Run Commands**:
@@ -145,15 +145,15 @@ This mock consumer lets you test your secured endpoints easily!
 
    # Test Admin API
    curl http://localhost:8000/admin-api  # Should fail
-   curl http://localhost:8000/admin-api -H "apikey: mock-key-xyz123"  # Should work
+   curl http://localhost:8000/admin-api -H "apikey: saeed-123"  # Should work
 
    # Test Billing Service
    curl http://localhost:8000/billing  # Should fail
-   curl http://localhost:8000/billing -H "apikey: mock-key-xyz123"  # Should work
+   curl http://localhost:8000/billing -H "apikey: saeed-123"  # Should work
 
    # Test Notifications Service
    curl http://localhost:8000/notifications  # Should fail
-   curl http://localhost:8000/notifications -H "apikey: mock-key-xyz123"  # Should work
+   curl http://localhost:8000/notifications -H "apikey: saeed-123"  # Should work
    ```
 
 ---
@@ -161,5 +161,5 @@ This mock consumer lets you test your secured endpoints easily!
 ### Notes
 - **Scope**: This focuses only on the mock consumer, using your existing setup.
 - **Repo**: Add this as `kong-consumer.md` to `https://github.com/bachetesla/openlens`.
-- **Customization**: Change `mock-key-xyz123` to any key you prefer—just update it in `kong.yml` and your tests.
+- **Customization**: Change `saeed-123` to any key you prefer—just update it in `kong.yml` and your tests.
 
