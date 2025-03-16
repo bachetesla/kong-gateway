@@ -81,7 +81,7 @@ services:
     networks:
       - kong-net
     ports:
-      - "8081:80"
+      - "8083:80"
     volumes:
       - ./nginx/nginx1:/usr/share/nginx/html
 
