@@ -18,6 +18,7 @@ services:
         paths:
           - /nginx1
     plugins:
+      - name: key-auth
       - name: rate-limiting
         config:
           minute: 100
@@ -35,6 +36,7 @@ services:
         paths:
           - /nginx2
     plugins:
+      - name: key-auth
       - name: rate-limiting
         config:
           minute: 50
